@@ -1,4 +1,4 @@
-# Go Template Project
+# Go Microservice Template
 
 This is a template project demonstrating a clean architecture pattern with a simple health check API. The project includes mocked database and Redis implementations for development and testing purposes.
 
