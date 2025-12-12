@@ -5,6 +5,7 @@ import (
 	"template/internal/app/service/healthService"
 	"template/internal/app/manager/healthManager"
 	"template/internal/app/controller"
+	"template/internal/pkg/db"
 )
 
 
@@ -13,8 +14,12 @@ type Container struct {
 }
 
 func NewContainer() *Container {
+
+
+	database := db.NewDB()
+	redis := db.NewRedis()
 	healthClient := healthClient.NewHealthClient()
-	healthService := healthService.NewHealthService(healthClient)
+	healthService := healthService.NewHealthService(healthClient, database, redis)
 	healthManager := healthManager.NewHealthManager(healthService)
 	healthController := controller.NewHealthController(healthManager)
 	return &Container{

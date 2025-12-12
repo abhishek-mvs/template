@@ -1,6 +1,7 @@
 package db
 
 import (
+	"errors"
 	"sync"
 
 	"github.com/google/uuid"
@@ -18,14 +19,29 @@ func NewDB() *DB {
 }
 
 // Save inserts or updates a record in a table.
-func (db *DB) Save(table string, id uuid.UUID, value interface{}) {
+func (db *DB) Save(table string,  value interface{}) (uuid.UUID, error) 	{
 	db.mu.Lock()
 	defer db.mu.Unlock()
-
+	id := uuid.New()
 	if _, ok := db.data[table]; !ok {
 		db.data[table] = make(map[uuid.UUID]interface{})
 	}
 	db.data[table][id] = value
+	return id, nil
+}
+
+
+func (db *DB) Update(table string, id uuid.UUID, value interface{}) error {
+	db.mu.Lock()
+	defer db.mu.Unlock()
+	if _, ok := db.data[table]; !ok {
+		return errors.New("table not found")
+	}
+	if _, ok := db.data[table][id]; !ok {
+		return errors.New("record not found")
+	}
+	db.data[table][id] = value
+	return nil
 }
 
 // Get returns a record by table + id.

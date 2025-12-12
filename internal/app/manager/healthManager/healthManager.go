@@ -1,6 +1,9 @@
 package healthManager
 
-import "template/internal/app/service/healthService"
+import (
+	"template/internal/app/dto"
+	"template/internal/app/service/healthService"
+)
 
 type HealthManager struct {
 	healthService *healthService.HealthService
@@ -12,6 +15,6 @@ func NewHealthManager(healthService *healthService.HealthService) *HealthManager
 	}
 }
 
-func (h *HealthManager) HealthCheck() (bool, error) {
+func (h *HealthManager) HealthCheck() (dto.HealthResponse, error) {
 	return h.healthService.HealthCheck()
 }
