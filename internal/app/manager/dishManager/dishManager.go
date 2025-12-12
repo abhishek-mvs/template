@@ -20,4 +20,3 @@ func NewDishManager(dishService *dishService.DishService) *DishManager {
 func (d *DishManager) GetDishesByRestaurantId(restaurantId uuid.UUID) (dto.DishResponse, error) {
 	return d.dishService.GetDishesByRestaurantId(restaurantId)
 }
-

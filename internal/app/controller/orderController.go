@@ -3,9 +3,10 @@ package controller
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"template/internal/app/dto"
 	"template/internal/app/manager/orderManager"
+
+	"github.com/gin-gonic/gin"
 )
 
 type OrderController struct {
@@ -47,4 +48,3 @@ func (o *OrderController) GetUserOrders(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, response)
 }
-

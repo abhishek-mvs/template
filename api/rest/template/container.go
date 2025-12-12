@@ -2,23 +2,23 @@ package template
 
 import (
 	"template/internal/app/clients/healthClient"
-	"template/internal/app/service/healthService"
+	"template/internal/app/controller"
+	"template/internal/app/manager/dishManager"
 	"template/internal/app/manager/healthManager"
-	"template/internal/app/service/restaurantService"
+	"template/internal/app/manager/orderManager"
 	"template/internal/app/manager/restaurantManager"
 	"template/internal/app/service/dishService"
-	"template/internal/app/manager/dishManager"
+	"template/internal/app/service/healthService"
 	"template/internal/app/service/orderService"
-	"template/internal/app/manager/orderManager"
-	"template/internal/app/controller"
+	"template/internal/app/service/restaurantService"
 	"template/internal/pkg/db"
 )
 
 type Container struct {
-	HealthController    *controller.HealthController
+	HealthController     *controller.HealthController
 	RestaurantController *controller.RestaurantController
-	DishController      *controller.DishController
-	OrderController     *controller.OrderController
+	DishController       *controller.DishController
+	OrderController      *controller.OrderController
 }
 
 func NewContainer() *Container {
@@ -50,9 +50,9 @@ func NewContainer() *Container {
 	orderController := controller.NewOrderController(orderManager)
 
 	return &Container{
-		HealthController:    healthController,
+		HealthController:     healthController,
 		RestaurantController: restaurantController,
-		DishController:      dishController,
-		OrderController:     orderController,
+		DishController:       dishController,
+		OrderController:      orderController,
 	}
 }

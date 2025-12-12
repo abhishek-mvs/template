@@ -3,8 +3,9 @@ package controller
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"template/internal/app/manager/dishManager"
+
+	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
 
@@ -33,4 +34,3 @@ func (d *DishController) GetDishesByRestaurantId(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, response)
 }
-

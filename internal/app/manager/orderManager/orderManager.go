@@ -24,4 +24,3 @@ func (o *OrderManager) CreateOrder(userId string, restaurantId uuid.UUID, dishId
 func (o *OrderManager) GetUserOrders(userId string) (dto.UserOrdersResponse, error) {
 	return o.orderService.GetUserOrders(userId)
 }
-

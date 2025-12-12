@@ -34,6 +34,7 @@ func (h *HealthService) HealthCheck() (dto.HealthResponse, error) {
 		id, err := h.DB.Save("health_counter", healthCounter)
 		if err != nil {
 			return dto.HealthResponse{
+				Id: uuid.Nil,
 				Counter: 0,
 				Success: false,
 			}, err
@@ -48,6 +49,7 @@ func (h *HealthService) HealthCheck() (dto.HealthResponse, error) {
 		healthId, ok = healthIdVal.(uuid.UUID)
 		if !ok {
 			return dto.HealthResponse{
+				Id: uuid.Nil,
 				Counter: 0,
 				Success: false,
 			}, errors.New("health counter id is not a valid uuid")
@@ -57,6 +59,7 @@ func (h *HealthService) HealthCheck() (dto.HealthResponse, error) {
 	healthCounterVal, exists := h.DB.Get("health_counter", healthId)
 	if !exists {
 		return dto.HealthResponse{
+			Id: uuid.Nil,
 			Counter: 0,
 			Success: false,
 		}, errors.New("health counter not found")
@@ -65,6 +68,7 @@ func (h *HealthService) HealthCheck() (dto.HealthResponse, error) {
 	healthCounter, ok := healthCounterVal.(*dto.HealthCounter)
 	if !ok {
 		return dto.HealthResponse{
+			Id: uuid.Nil,
 			Counter: 0,
 			Success: false,
 		}, errors.New("health counter is not a valid dto.HealthCounter")
@@ -74,6 +78,7 @@ func (h *HealthService) HealthCheck() (dto.HealthResponse, error) {
 	err := h.DB.Update("health_counter", healthId, healthCounter)
 	if err != nil {
 		return dto.HealthResponse{
+			Id: uuid.Nil,
 			Counter: 0,
 			Success: false,
 		}, err
@@ -82,11 +87,13 @@ func (h *HealthService) HealthCheck() (dto.HealthResponse, error) {
 	success, err := h.HealthClient.HealthCheck()
 	if err != nil {
 		return dto.HealthResponse{
+			Id: uuid.Nil,
 			Counter: healthCounter.Counter,
 			Success: false,
 		}, err
 	}
 	return dto.HealthResponse{
+		Id: healthId,
 		Counter: healthCounter.Counter,
 		Success: success,
 	}, nil

@@ -8,6 +8,7 @@ type HealthCounter struct {
 }
 
 type HealthResponse struct {
+	Id uuid.UUID `json:"id"`
 	Counter int `json:"counter"`
 	Success bool `json:"success"`
 }

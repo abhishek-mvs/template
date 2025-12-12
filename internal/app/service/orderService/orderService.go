@@ -2,11 +2,11 @@ package orderService
 
 import (
 	"errors"
-	"time"
 	"template/internal/app/dto"
 	"template/internal/app/service/dishService"
 	"template/internal/app/service/restaurantService"
 	"template/internal/pkg/db"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -75,7 +75,7 @@ func (o *OrderService) CreateOrder(userId string, restaurantId uuid.UUID, dishId
 
 func (o *OrderService) GetUserOrders(userId string) (dto.UserOrdersResponse, error) {
 	allOrders := o.DB.GetAll("orders")
-	
+
 	orders := make([]dto.Order, 0)
 	for _, orderVal := range allOrders {
 		order, ok := orderVal.(*dto.Order)
@@ -91,4 +91,3 @@ func (o *OrderService) GetUserOrders(userId string) (dto.UserOrdersResponse, err
 		Orders: orders,
 	}, nil
 }
-
