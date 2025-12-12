@@ -10,5 +10,16 @@ func RegisterRoutes(router *gin.Engine) *gin.RouterGroup {
 }
 
 func externalRoutes(routerGroup *gin.RouterGroup, container *Container) {
+	// Health check
 	routerGroup.GET("/health", container.HealthController.HealthCheck)
+
+	// Restaurant routes
+	routerGroup.GET("/restaurants", container.RestaurantController.GetAllRestaurants)
+
+	// Dish routes
+	routerGroup.GET("/restaurants/:id/dishes", container.DishController.GetDishesByRestaurantId)
+
+	// Order routes
+	routerGroup.POST("/orders", container.OrderController.CreateOrder)
+	routerGroup.GET("/users/:userId/orders", container.OrderController.GetUserOrders)
 }
